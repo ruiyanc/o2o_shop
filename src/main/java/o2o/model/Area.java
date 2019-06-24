@@ -3,7 +3,7 @@ package o2o.model;
 import java.util.Date;
 
 public class Area {
-// id
+        //  id
     private Integer areaId;
 //  名称
     private String areaName;
