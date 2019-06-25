@@ -15,21 +15,21 @@
     </init-param>
 <!--    字体颜色-->
     <init-param>
-      <param-name>kaptcha.testproducer.font.color</param-name>
+      <param-name>kaptcha.textproducer.font.color</param-name>
       <param-value>red</param-value>
     </init-param>
     <init-param>
-      <param-name>kaptcha.testproducer.font.size</param-name>
+      <param-name>kaptcha.textproducer.font.size</param-name>
       <param-value>43</param-value>
     </init-param>
 <!--    字体-->
     <init-param>
-      <param-name>kaptcha.testproducer.font.names</param-name>
+      <param-name>kaptcha.textproducer.font.names</param-name>
       <param-value>Arial</param-value>
     </init-param>
 <!--    字符个数-->
     <init-param>
-      <param-name>kaptcha.testproducer.char.length</param-name>
+      <param-name>kaptcha.textproducer.char.length</param-name>
       <param-value>4</param-value>
     </init-param>
 <!--    图片宽高-->
@@ -43,7 +43,7 @@
     </init-param>
 <!--    使用什么字符生成-->
     <init-param>
-      <param-name>kaptcha.testproducer.char.string</param-name>
+      <param-name>kaptcha.textproducer.char.string</param-name>
       <param-value>ACDEFHKPRSTWX345679</param-value>
     </init-param>
 <!--    干扰线颜色-->
@@ -52,6 +52,10 @@
       <param-value>black</param-value>
     </init-param>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>Kaptcha</servlet-name>
+    <url-pattern>/Kaptcha</url-pattern>
+  </servlet-mapping>
   <!-- spring的配置文件位置 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>

@@ -1,6 +1,6 @@
 $(function () {
-    var initUrl = "/o2o/shopadmin/getshopinitinfo";
-    var registerShopUrl = "/o2o/shopadmin/registershop";
+    var initUrl = "/o2o_war_exploded/shopadmin/getshopinitinfo";
+    var registerShopUrl = "/o2o_war_exploded/shopadmin/registershop";
     getShopInitInfo();
     function getShopInitInfo() {
         $.getJSON(initUrl, function (data) {
@@ -8,12 +8,12 @@ $(function () {
                 var tempHtml = '';
                 var tempAreaHtml = '';
                 data.shopCategoryList.map(function (value, index) {
-                    tempHtml += '<option data-id="' + item.shopCategoryId +'">'
-                    + item.shopCategoryName + '</option>';
+                    tempHtml += '<option data-id="' + value.shopCategoryId +'">'
+                    + value.shopCategoryName + '</option>';
                 });
                 data.areaList.map(function (value, index) {
-                    tempAreaHtml += '<option data-id="' + item.areaId + '">'
-                    + item.areaName + '</option>';
+                    tempAreaHtml += '<option data-id="' + value.areaId +'">'
+                        + value.areaName + '</option>';
                 });
                 $('#shop-category').html(tempHtml);
                 $('#area').html(tempAreaHtml);
@@ -26,7 +26,7 @@ $(function () {
             shop.phone = $('#shop-phone').val();
             shop.shopDesc = $('#shop-desc').val();
             shop.shopCategory = {
-                shopCategory: $('#shop-category').find('option').not(function () {
+                shopCategoryId: $('#shop-category').find('option').not(function () {
                     return !this.selected;
                 }).data('id')
             };
@@ -50,7 +50,7 @@ $(function () {
                 type: 'POST',
                 data: formData,
                 contentType: false,
-                proceesData: false,
+                processData: false,
                 cache: false,
                 success: function (data) {
                     if (data.success) {
@@ -58,6 +58,7 @@ $(function () {
                     } else {
                         $.toast('提交失败!' + data.errMsg);
                     }
+                    $('#captcha_img').click();
                 }
             });
         });

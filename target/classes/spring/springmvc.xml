@@ -13,15 +13,17 @@
     <!--静态资源默认Servlet处置-->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:default-servlet-handler/>
-    <!--配置控制器处理映射-->
-    <!--<bean class="org.springframework.o2o.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
-    <!--配置控制器-相当于访问路径-->
-    <!--<bean name="/user.do" class="o2o.web.controller.UserController"/>-->
     <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--前缀-->
         <property name="prefix" value="/WEB-INF/views/"/>
         <!--后缀-->
         <property name="suffix" value=".html"/>
+    </bean>
+<!--    文件上传解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="20971520"/>
+        <property name="maxInMemorySize" value="20971520"/>
     </bean>
 </beans>
