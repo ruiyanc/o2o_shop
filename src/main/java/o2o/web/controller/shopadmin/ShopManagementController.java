@@ -42,8 +42,8 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> getShopInitInfo() {
         Map<String, Object> modelMap = new HashMap<>();
-        List<ShopCategory> shopCategoryList = new ArrayList<>();
-        List<Area> areaList = new ArrayList<>();
+        List<ShopCategory> shopCategoryList;
+        List<Area> areaList;
         shopCategoryList = shopCategoryService.getShopCategoryList(new ShopCategory());
         areaList = areaService.getAreaList();
         modelMap.put("shopCategoryList", shopCategoryList);
@@ -67,7 +67,6 @@ public class ShopManagementController {
         Shop shop;
         try {
             shop = mapper.readValue(shopStr, Shop.class);
-            System.out.println(shop);
         } catch (Exception e) {
             modelMap.put("success", false);
             modelMap.put("errMsg", e.getMessage());
@@ -90,7 +89,7 @@ public class ShopManagementController {
             //Session
             owner.setUserId(1L);
             shop.setOwner(owner);
-            ShopExecution se = null;
+            ShopExecution se;
             try {
                 se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
@@ -100,7 +99,8 @@ public class ShopManagementController {
                     modelMap.put("errMsg", "请输入店铺信息");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                modelMap.put("success", false);
+                modelMap.put("errMsg", e.getMessage());
             }
             return modelMap;
         } else {
