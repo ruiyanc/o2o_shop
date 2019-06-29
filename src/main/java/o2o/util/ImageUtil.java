@@ -67,6 +67,22 @@ public class ImageUtil {
         return nowTimeStr + rannum;
     }
 
+    /**
+     * 若为目录则删目录下的所有文件,为文件则删文件
+     * @param storePath
+     */
+    public static void deleteFileOrPath(String storePath) {
+        File fileOrPath = new File(PathUtil.getImageBasePath() + storePath);
+        if (fileOrPath.exists()) {
+            if (fileOrPath.isDirectory()) {
+                File[] files = fileOrPath.listFiles();
+                for (File file : files) {
+                    file.delete();
+                }
+            }
+            fileOrPath.delete();
+        }
+    }
 //    public static void main(String[] args) throws IOException {
 //        System.out.println(basePath);
 //        Thumbnails.of(new File("/home/yanrui/图片/o2o_img/watermark.png")).size(200,200)
