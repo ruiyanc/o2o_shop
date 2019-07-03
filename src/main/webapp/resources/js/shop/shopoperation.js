@@ -82,7 +82,7 @@ $(function () {
         formData.append('verifyCodeActual', verifyCodeActual);
         $.ajax({
             url: (isEdit ? editShopUrl : registerShopUrl),
-            type: 'POST',
+            type: "POST",
             data: formData,
             contentType: false,
             processData: false,
