@@ -41,4 +41,12 @@ public class HttpServletRequestUtil {
             return null;
         }
     }
+
+    public static boolean getBoolean(HttpServletRequest request, String key) {
+        try {
+            return Boolean.valueOf(key);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

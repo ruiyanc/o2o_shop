@@ -1,15 +1,15 @@
 package o2o.enums;
 
-public enum ProductCategoryStateEnum {
+public enum ProductStateEnum {
     /**
      * CHECK审核,OFFLINE非法
      */
-    SUCCESS(1, "创建成功"), INNER_ERROR(-1001, "操作失败"),
-    EMPTY_LIST(-1002, "添加数小于1");
+    CHECK(0,"审核中"), SUCCESS(1, "操作成功"),
+    PASS(2,"通过审核"), INNER_ERROR(-1001, "系统内部错误");
     private int state;
     private String stateInfo;
 
-    ProductCategoryStateEnum(int state, String stateInfo) {
+    ProductStateEnum(int state, String stateInfo) {
         this.state = state;
         this.stateInfo = stateInfo;
     }
@@ -19,8 +19,8 @@ public enum ProductCategoryStateEnum {
      * @param state
      * @return
      */
-    public static ProductCategoryStateEnum stateOf(int state) {
-        for (ProductCategoryStateEnum stateEnum:values()) {
+    public static ProductStateEnum stateOf(int state) {
+        for (ProductStateEnum stateEnum:values()) {
             if (stateEnum.getState() == state) {
                 return stateEnum;
             }

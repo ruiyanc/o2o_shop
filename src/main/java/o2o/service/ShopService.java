@@ -1,5 +1,6 @@
 package o2o.service;
 
+import o2o.dto.ImageHolder;
 import o2o.dto.ShopExecution;
 import o2o.model.Shop;
 import java.io.InputStream;
@@ -23,17 +24,15 @@ public interface ShopService {
     /**
      * 更新店铺信息
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param thumbnail
      * @return
      */
-    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName);
+    ShopExecution modifyShop(Shop shop, ImageHolder thumbnail);
     /**
      * 注册店铺信息,包括图片处理
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param thumbnail
      * @return
      */
-    ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName);
+    ShopExecution addShop(Shop shop, ImageHolder thumbnail);
 }

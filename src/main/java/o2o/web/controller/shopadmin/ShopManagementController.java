@@ -1,6 +1,7 @@
 package o2o.web.controller.shopadmin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import o2o.dto.ImageHolder;
 import o2o.dto.ShopExecution;
 import o2o.enums.ShopStateEnum;
 import o2o.model.Area;
@@ -12,6 +13,7 @@ import o2o.service.ShopCategoryService;
 import o2o.service.ShopService;
 import o2o.util.CodeUtil;
 import o2o.util.HttpServletRequestUtil;
+import o2o.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,7 +99,6 @@ public class ShopManagementController {
             modelMap.put("success", false);
             modelMap.put("errMsg", "empty shopId");
         }
-//        System.out.println(modelMap);
         return modelMap;
     }
     @RequestMapping(value = "/getshopinitinfo", method = RequestMethod.GET)
@@ -146,9 +147,10 @@ public class ShopManagementController {
             ShopExecution se;
             try {
                 if (shopImg == null) {
-                    se = shopService.modifyShop(shop, null, null);
+                    se = shopService.modifyShop(shop, null);
                 } else {
-                    se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                    ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(),shopImg.getInputStream());
+                    se = shopService.modifyShop(shop, imageHolder);
                 }
                 if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
                     modelMap.put("success", true);
@@ -213,7 +215,8 @@ public class ShopManagementController {
 //            shop.setLastEditTime(new Date());
             ShopExecution se;
             try {
-                se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(),shopImg.getInputStream());
+                se = shopService.addShop(shop, imageHolder);
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
                     modelMap.put("success", true);
                     //该用户可以操作的店铺列表
