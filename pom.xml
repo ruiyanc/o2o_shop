@@ -248,3 +248,4 @@
     </pluginManagement>
   </build>
 </project>
+<!--        jdbc:mysql://68.168.129.144/o2o?userSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT-->

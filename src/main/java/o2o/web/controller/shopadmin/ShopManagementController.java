@@ -28,7 +28,7 @@ import java.io.*;
 import java.util.*;
 
 @Controller
-@RequestMapping("/shopadmin")
+@RequestMapping("shopadmin")
 public class ShopManagementController {
     @Autowired
     private ShopService shopService;

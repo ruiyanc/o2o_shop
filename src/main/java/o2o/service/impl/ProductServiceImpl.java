@@ -10,6 +10,7 @@ import o2o.model.Product;
 import o2o.model.ProductImg;
 import o2o.service.ProductService;
 import o2o.util.ImageUtil;
+import o2o.util.PageCalculator;
 import o2o.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,18 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
     @Autowired
     private ProductImgDao productImgDao;
+
+    @Override
+    public ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize) {
+        int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+        List<Product> productList = productDao.queryProductList(productCondition,rowIndex, pageSize);
+        int count = productDao.queryProductCount(productCondition);
+        ProductExecution pe = new ProductExecution();
+        pe.setProductList(productList);
+        pe.setCount(count);
+        return pe;
+    }
+
     @Override
     @Transactional
     public ProductExecution addProduct(Product product, ImageHolder thumbnail, List<ImageHolder> productImgHolderList) {

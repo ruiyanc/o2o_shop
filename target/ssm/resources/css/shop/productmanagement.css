@@ -1,0 +1,16 @@
+.row-product{
+    border: 1px solid #999999;
+    padding: 0.5rem;
+    border-bottom: none;
+}
+.row-product *{
+    white-space: nowrap;
+    overflow: scroll;
+}
+.row-product:last-child{
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+.product-wrap a{
+    margin-right: 1rem;
+}

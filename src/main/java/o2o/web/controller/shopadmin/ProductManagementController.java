@@ -12,6 +12,7 @@ import o2o.service.ProductCategoryService;
 import o2o.service.ProductService;
 import o2o.util.CodeUtil;
 import o2o.util.HttpServletRequestUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,10 +39,54 @@ public class ProductManagementController {
 /**    支持上传商品详情图的最大数量 */
     private static final int IMAGEMAXCOUNT = 6;
 
+    @RequestMapping(value = "getproductlistbyshop", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String, Object> getProductListByShop(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<>();
+//        前台传来的页码
+        int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+//        每页展示的上限
+        int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+        Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+        if ((pageIndex > -1) && (pageSize > -1) && (currentShop != null) && (currentShop.getShopId() != null)) {
+            Long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
+            String productName = HttpServletRequestUtil.getString(request, "productName");
+            Product productCondition = compactProductCondition(currentShop.getShopId(), productCategoryId, productName);
+            ProductExecution pe = productService.getProductList(productCondition, pageIndex, pageSize);
+            modelMap.put("productList", pe.getProductList());
+            modelMap.put("count", pe.getCount());
+            modelMap.put("success", true);
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "id页码等为空");
+        }
+        return modelMap;
+    }
+
     /**
-     * 根据商品id获取商品全部信息
+     *
+     * @param shopId
+     * @param productCategoryId
+     * @param productName
      * @return
      */
+    private Product compactProductCondition(Long shopId, Long productCategoryId, String productName) {
+        Product productCondition = new Product();
+        Shop shop = new Shop();
+        shop.setShopId(shopId);
+        productCondition.setShop(shop);
+//        若有指定类别的要求则添加进去
+        if (productCategoryId != -1L) {
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.setProductCategoryId(productCategoryId);
+            productCondition.setProductCategory(productCategory);
+        }
+        if (productName != null) {
+            productCondition.setProductName(productName);
+        }
+        return productCondition;
+    }
+
     @RequestMapping(value = "getproductbyid", method = RequestMethod.GET)
     @ResponseBody
     private Map<String, Object> getProductById(HttpServletRequest request) {
@@ -63,10 +108,9 @@ public class ProductManagementController {
 
     @RequestMapping(value = "modifyproduct", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> modifyProduct(HttpServletRequest request) {
+    private Map<String, Object> modifyProduct(@Param("statusChange")boolean statusChange, HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<>();
 //        商品编辑时调用需进行验证码判断,上下架操作时不需要
-        boolean statusChange = HttpServletRequestUtil.getBoolean(request, "statusChange");
         if (!statusChange && !CodeUtil.checkVerifyCode(request)) {
             modelMap.put("success", false);
             modelMap.put("errMsg", "输入了错误验证码");

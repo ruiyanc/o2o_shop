@@ -8,6 +8,16 @@ import java.util.List;
 
 public interface ProductService {
     /**
+     * 查询商品列表并分页
+     * @param productCondition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize);
+
+//    Product getProductById(long productId);
+    /**
      * 添加商品信息以及图片处理
      * @param product
      * @param thumbnail
