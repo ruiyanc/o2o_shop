@@ -17,7 +17,7 @@
     <!-- 数据源 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/o2o?useSSL=true&amp;serverTimezone=UTC" />
+        <property name="jdbcUrl" value="jdbc:mysql://68.168.129.144/o2o?userSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;serverTimezone=GMT&amp;autoReconnect=true" />
         <property name="user" value="root" />
         <property name="password" value="xu1998" />
         <property name="maxPoolSize" value="30"/>

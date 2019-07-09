@@ -28,6 +28,9 @@ public class ImageUtil {
         String relativeAddr = targetAddr + realFileName + extension;
 //        获取文件要保存到的目标路径
         File dest = new File(PathUtil.getImageBasePath() + relativeAddr);
+        System.out.println(dest);
+//        绝对路径的位置
+        System.out.println(dest.getAbsolutePath());
 //        调用Thumbnails生成带水印的图片
         try {
             Thumbnails.of(thumbnail.getImage()).size(200, 200)

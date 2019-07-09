@@ -82,6 +82,11 @@
         WHERE p.product_id=#{productId}
         ORDER BY pm.priority DESC
     </select>
+    <update id="updateProductCateogryToNull" parameterType="long">
+        UPDATE tb_product
+        SET product_category_id=null
+        WHERE product_category_id=#{productCategoryId}
+    </update>
     <update id="updateProduct" parameterType="Product" keyProperty="product_id" useGeneratedKeys="true">
         UPDATE tb_product
         <set>
