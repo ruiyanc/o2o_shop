@@ -33,7 +33,7 @@ $(function () {
                         + item.shopCategoryId + '">' + item.shopCategoryName + '</a>';
                 });
                 $('#shoplist-search-div').html(html);
-                var selectOptions = '<option class="col-80" value="">全部地址</option>';
+                var selectOptions = '<option value="">全部地址</option>';
                 var areaList = data.areaList;
                 areaList.map(function (item, index) {
                     selectOptions += '<option value="' + item.areaId + '">'
@@ -68,17 +68,17 @@ $(function () {
                         + '<div class="item-inner">' + '<div class="item-subtitle">'
                         + item.shopDesc + '</div>' + '</div>' + '</li>' + '</ul>'
                         + '</div>' + '</div>' + '<div class="card-footer">' + '<p class="color-gray">'
-                        + new Date(item.lastEditTime).Format("yyyy-MM-dd") + '更新</p>'
+                        + Format(new Date(item.lastEditTime),'-') + '更新</p>'
                         + '<span>点击查看</span>' + '</div>' + '</div>';
                 });
                 $('.list-div').append(html);
                 // 获取目前为止已显示的卡片总数
                 var total = $('.list-div .card').length;
                 if (total >= maxItems) {
-                    // 加载完毕则注销无限加载事件
-                    $.detachInfiniteScroll($('.infinite-scroll'));
-                    // 删除加载提示符
-                    $('.infinite-scroll-preloader').remove();
+                    // 隐藏加载提示符
+                    $('.infinite-scroll-preloader').hide();
+                } else {
+                    $('.infinite-scroll-preloader').show();
                 }
                 // 否则页码加1,继续加载出新的店铺
                 pageNum += 1;
@@ -132,7 +132,7 @@ $(function () {
         }
     });
     // 查询的店铺名字变化时
-    $('#search').on('input', function (e) {
+    $('#search').on('change', function (e) {
         shopName = e.target.value;
         $('.list-div').empty();
         pageNum = 1;
