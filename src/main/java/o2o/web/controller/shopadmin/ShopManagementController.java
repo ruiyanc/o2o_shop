@@ -46,7 +46,7 @@ public class ShopManagementController {
             Object currentShopObj = request.getSession().getAttribute("currentShop");
             if (currentShopObj == null) {
                 modelMap.put("redirect", true);
-                modelMap.put("url", "/o2o_war_exploded/shopadmin/shoplist");
+                modelMap.put("url", "/o2o/shopadmin/shoplist");
             } else {
                 Shop currentShop = (Shop) currentShopObj;
                 modelMap.put("redirect", false);
@@ -101,6 +101,7 @@ public class ShopManagementController {
         }
         return modelMap;
     }
+
     @RequestMapping(value = "/getshopinitinfo", method = RequestMethod.GET)
     @ResponseBody
     private Map<String, Object> getShopInitInfo() {

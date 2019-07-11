@@ -11,7 +11,7 @@
     <!--开启springMVC注解模式-->
     <mvc:annotation-driven/>
     <!--静态资源默认Servlet处置-->
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="../resources/**" location="../resources/"/>
     <mvc:default-servlet-handler/>
     <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

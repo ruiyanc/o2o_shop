@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>rui</groupId>
-  <artifactId>ssm</artifactId>
+  <artifactId>o2o</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>ssm Maven Webapp</name>
+  <name>o2o Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -212,9 +212,21 @@
   </dependencies>
 
   <build>
-    <finalName>ssm</finalName>
+    <finalName>o2o</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+        <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat7-maven-plugin</artifactId>
+          <version>2.2</version>
+          <configuration>
+            <url>http://68.168.129.144/manager/text</url>
+            <server>yanrui</server>
+            <username>admin</username>
+            <password>admin</password>
+            <path>/ItMonitor</path>
+          </configuration>
+        </plugin>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
